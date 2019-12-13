@@ -1,1 +1,1 @@
-# get_text_react_app
+Get Text App
