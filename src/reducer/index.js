@@ -1,5 +1,6 @@
 export const CREATE_GROUP = "CREATE_GROUP";
 export const CREATE_FILE = "CREATE_FILE";
+export const CHANGE_MODE = "CHANGE_MODE";
 
 const createFileReducer = (state, file) => {
   //id, title, text, createdAt, updatedAt, createdWith: [fileId, fileId], shareWith: [fileId, fileId], group: groupId
@@ -28,6 +29,11 @@ export const textReducer = (state, action) => {
       };
     case CREATE_FILE:
       return createFileReducer(state, action.file);
+    case CHANGE_MODE:
+      return {
+        ...state,
+        lightMode: action.lightMode
+      };
     default:
       return state;
   }

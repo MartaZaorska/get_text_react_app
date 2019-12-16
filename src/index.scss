@@ -10,6 +10,7 @@ $darkModeBackground: #181e2b;
 
 $lightModeColor: #222;
 $lightModeBackground: #fff;
+$lightGreen: rgb(236, 252, 207);
 
 $gradient: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
 
@@ -49,6 +50,7 @@ select {
   font-family: inherit;
   color: inherit;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 input::placeholder {
@@ -63,6 +65,7 @@ input:focus,
 select:active,
 select:focus {
   outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .container {
@@ -72,9 +75,14 @@ select:focus {
   width: 100%;
   height: 100%;
   min-height: 100vh;
+
   &--dark {
     color: $darkModeColor;
     background: $darkModeBackground;
+  }
+
+  &--blur {
+    filter: blur(5px);
   }
 }
 
@@ -93,6 +101,20 @@ select:focus {
   }
 }
 
+.modal {
+  position: fixed;
+  z-index: 10;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: rgba($lightModeBackground, 0.7);
+  &--dark {
+    background: rgba($darkModeBackground, 0.8);
+  }
+}
+
 // NAVBAR SECTION
 
 .navbar {
@@ -105,7 +127,7 @@ select:focus {
   align-items: center;
   flex-direction: column;
 
-  background: rgba(227, 253, 179, 0.616);
+  background: $lightGreen;
   box-shadow: 0px -1px 2px rgba(80, 80, 80, 0.15);
 
   @media #{$md} {
@@ -216,6 +238,7 @@ select:focus {
     font-size: 3em;
     background: $gradient;
     background-clip: text;
+    -webkit-background-clip: text;
     color: transparent;
     line-height: 1.2;
 
@@ -224,7 +247,7 @@ select:focus {
 
   &__text {
     line-height: 1.8;
-    margin: 0.8em 0em;
+    margin: 0.6em 0em;
 
     @include startBasicStyle(0.3s);
 
@@ -258,7 +281,7 @@ select:focus {
     }
 
     .home__text {
-      margin: 1.1em 0em 2.5em 0em;
+      margin: 1.1em 0em 2em 0em;
       line-height: 2;
     }
 
@@ -268,10 +291,8 @@ select:focus {
       .stripe {
         transition: width 0.2s;
       }
-      &:hover {
-        .stripe {
-          width: 2.3em;
-        }
+      &:hover .stripe {
+        width: 2.3em;
       }
     }
   }
@@ -298,54 +319,60 @@ select:focus {
 
 .home__background {
   z-index: 0;
-  .flamingo {
-    display: none;
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    width: 320px;
-    height: auto;
-    filter: saturate(0.8);
-    z-index: 1;
-  }
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 
   .leaf {
     position: absolute;
     max-height: 100vh;
-    top: 0px;
     right: 0px;
     width: 220px;
     height: auto;
     opacity: 0.9;
-    z-index: 0;
+  }
+
+  .leaf_bottom {
+    display: none;
+    bottom: 0px;
+    right: 0px;
+    width: 250px;
+    transform: rotate(90deg) translateX(30px);
+  }
+
+  .leaf_top {
+    top: 0px;
+    height: auto;
   }
 
   @media screen and (min-width: 768px) and (min-height: 650px) {
-    .flamingo {
+    .leaf_bottom {
       display: block;
     }
   }
 
   @media #{$md} {
-    .leaf {
+    .leaf_top {
       width: 270px;
     }
   }
 
   @media #{$lg} {
-    .leaf {
-      width: 320px;
+    .leaf_top {
+      width: 330px;
     }
   }
 
   @media #{$xl} {
-    .flamingo {
-      display: block;
-      width: 360px;
+    .leaf_top {
+      width: 380px;
     }
 
-    .leaf {
-      width: 360px;
+    .leaf_bottom {
+      display: block;
     }
   }
 }

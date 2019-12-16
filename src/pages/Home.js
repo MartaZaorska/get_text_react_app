@@ -26,14 +26,14 @@ function Home() {
       </section>
       <section className="home__background">
         <img
-          src="https://www.freepnglogos.com/uploads/flamingo-png/flamingo-png-flamingo-pinterest-flamingo-25.png"
-          alt="flamingo"
-          className="flamingo"
+          src="https://cdn130.picsart.com/237357485065212.png?r1024x1024"
+          alt="palm leaf"
+          className="leaf leaf_top"
         />
         <img
           src="https://cdn130.picsart.com/237357485065212.png?r1024x1024"
           alt="palm leaf"
-          className="leaf"
+          className="leaf leaf_bottom"
         />
       </section>
     </section>

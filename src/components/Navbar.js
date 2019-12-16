@@ -1,8 +1,7 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ toggleMode, openFormModal }) {
   return (
     <nav className="navbar">
       <section className="navbar_logo">
@@ -17,14 +16,17 @@ function Navbar() {
         <Link to="/files" className="navbar__link">
           <i className="fas fa-list-ul"></i>
         </Link>
-        <button className="navbar__button navbar__button--mobile">
+        <button
+          onClick={openFormModal}
+          className="navbar__button navbar__button--mobile"
+        >
           <i className="fas fa-plus"></i>
         </button>
         <Link to="/contact" className="navbar__link">
           <i className="fas fa-info"></i>
         </Link>
-        <button className="navbar__link">
-          <i className="fas fa-palette"></i>
+        <button onClick={toggleMode} className="navbar__link">
+          <i className="fas fa-adjust"></i>
         </button>
       </section>
     </nav>
