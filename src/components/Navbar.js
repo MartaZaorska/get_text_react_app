@@ -6,7 +6,7 @@ function Navbar({ toggleMode, openFormModal }) {
     <nav className="navbar">
       <section className="navbar_logo">
         <Link to="/" className="navbar_logo__link">
-          <i className="far fa-eye"></i>
+          <img src="./images/icons/app_icon_64x64.png" alt="logo" />
         </Link>
       </section>
       <section className="navbar__list">

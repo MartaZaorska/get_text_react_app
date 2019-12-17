@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,900&display=swap&subset=latin-ext");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,900&display=swap&subset=latin-ext");
+@import url("https://fonts.googleapis.com/css?family=PT+Sans:400,700&display=swap&subset=latin-ext");
 
 $xl: "screen and (min-width: 1200px)";
 $lg: "screen and (min-width: 992px)";
@@ -39,7 +40,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   font-size: 14px;
-  font-family: "Titillium Web", sans-serif;
+  font-family: "PT Sans", sans-serif;
 }
 
 button,
@@ -144,8 +145,12 @@ select:focus {
     margin-top: 0.5em;
 
     &__link {
-      font-size: 2.2em;
-      color: inherit;
+      display: flex;
+      justify-content: center;
+      img {
+        width: 80%;
+        height: auto;
+      }
     }
 
     @media #{$md} {
@@ -241,6 +246,7 @@ select:focus {
     -webkit-background-clip: text;
     color: transparent;
     line-height: 1.2;
+    font-weight: 700;
 
     @include startBasicStyle(0.1s);
   }
@@ -375,4 +381,67 @@ select:focus {
       display: block;
     }
   }
+}
+
+// FILES SECTION
+
+.manager {
+  position: relative;
+}
+
+.data_list {
+  width: 100%;
+  height: auto;
+
+  &__search {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+
+    border: 1px solid rgba(80, 80, 80, 0.4);
+    border-radius: 0.7em;
+    padding: 0.3em 0.7em;
+
+    i {
+      margin-right: 0.7em;
+    }
+
+    input {
+      width: 90%;
+    }
+  }
+
+  &__wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.panel {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin: 1.5em 0em;
+
+  &__title {
+    font-weight: 600;
+    font-size: 1.1em;
+    text-transform: capitalize;
+  }
+}
+
+.panel_item {
+  width: 100%;
+  height: auto;
+  display: flex;
+  margin: 0.5em 0em;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.text--light {
+  font-weight: 200;
 }

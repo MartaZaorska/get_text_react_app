@@ -7,7 +7,7 @@ import textContext from "./context/index";
 import Navbar from "./components/Navbar";
 import FormModal from "./components/FormModal";
 import Home from "./pages/Home";
-import Manage from "./pages/Manage";
+import Manager from "./pages/Manager";
 
 function App() {
   const [formModal, setFormModal] = useState(false);
@@ -29,7 +29,7 @@ function App() {
         />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/files" component={Manage} />
+          <Route exact path="/files" component={Manager} />
         </Switch>
       </section>
     </React.Fragment>
