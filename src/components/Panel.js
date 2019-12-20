@@ -1,21 +1,41 @@
 import React, { useContext } from "react";
-import textContext from "../context/index";
+
+import TextContext from "../context/textContext";
+import ModalContext from "../context/modalContext";
 
 import PanelItem from "./PanelItem";
 
 function Panel({ name }) {
-  const context = useContext(textContext);
+  const textContext = useContext(TextContext);
+  const modalContext = useContext(ModalContext);
 
   return (
     <section className="panel">
-      <h4 className="panel__title">{name}</h4>
-      {context[name].length === 0 ? (
+      <header className="panel__header">
+        <h4 className="panel__title">
+          {name === "groups" ? (
+            <i className="far fa-folder"></i>
+          ) : (
+            <i className="far fa-file"></i>
+          )}{" "}
+          {name}
+        </h4>
+        <button
+          onClick={() => modalContext.openModal(name)}
+          className="panel__button"
+        >
+          <i className="fas fa-plus"></i>
+        </button>
+      </header>
+      {textContext[name].length === 0 ? (
         <p className="panel_empty">empty</p>
       ) : (
         <section className="panel__content">
-          {context[name].map(item => (
-            <PanelItem item={item} key={item.id} />
-          ))}
+          {textContext[name]
+            .sort((a, b) => b.updatedAt - a.updatedAt)
+            .map(item => (
+              <PanelItem item={item} key={item.id} />
+            ))}
         </section>
       )}
     </section>

@@ -1,38 +1,61 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import classNames from "classnames";
 
-import textContext from "./context/index";
+import TextContext from "./context/textContext";
+import ModalContext from "./context/modalContext";
 
 import Navbar from "./components/Navbar";
-import FormModal from "./components/FormModal";
 import Home from "./pages/Home";
 import Manager from "./pages/Manager";
+import Modal from "./components/modal/Modal";
 
 function App() {
-  const [formModal, setFormModal] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("groups");
 
-  const context = useContext(textContext);
+  const context = useContext(TextContext);
+
+  const openModal = typeContent => {
+    setModalContent(typeContent);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => setModalOpen(false);
 
   return (
-    <React.Fragment>
-      {formModal ? <FormModal close={() => setFormModal(false)} /> : null}
+    <ModalContext.Provider
+      value={{
+        openModal,
+        closeModal,
+        modalOpen,
+        modalContent
+      }}
+    >
+      {modalOpen ? (
+        <Modal
+          closeModal={closeModal}
+          lightMode={context.lightMode}
+          modalContent={modalContent}
+        />
+      ) : null}
       <section
         className={classNames({
           container: true,
-          "container--dark": context && !context.lightMode
+          "container--dark": context && !context.lightMode,
+          "container--blur": modalOpen
         })}
       >
         <Navbar
           toggleMode={() => context.changeMode(!context.lightMode)}
-          openFormModal={() => setFormModal(true)}
+          openModal={openModal}
         />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/files" component={Manager} />
         </Switch>
       </section>
-    </React.Fragment>
+    </ModalContext.Provider>
   );
 }
 

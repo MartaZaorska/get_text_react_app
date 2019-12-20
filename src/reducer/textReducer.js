@@ -3,19 +3,18 @@ export const CREATE_FILE = "CREATE_FILE";
 export const CHANGE_MODE = "CHANGE_MODE";
 
 const createFileReducer = (state, file) => {
-  //id, title, text, createdAt, updatedAt, createdWith: [fileId, fileId], shareWith: [fileId, fileId], group: groupId
+  //id, title, text, createdAt, updatedAt, group: groupId
   const updatedState = {
     groups: [...state.groups],
     files: [...state.files, file]
   };
 
-  if (file.group.length !== 0) {
-    const indexGroup = updatedState.groups.findIndex(
-      group => group.id === file.group
-    );
-    updatedState.groups[indexGroup].files.push(file.id);
-    updatedState.groups[indexGroup].updatedAt = file.createdAt;
-  }
+  const indexGroup = updatedState.groups.findIndex(
+    group => group.id === file.group
+  );
+
+  updatedState.groups[indexGroup].files.push(file.id);
+  updatedState.groups[indexGroup].updatedAt = file.createdAt;
 
   return updatedState;
 };
@@ -45,6 +44,6 @@ groups [{
 }];
 
 files [{
-  id, title, text, createdAt, updatedAt, createdWith: [fileId, fileId], shareWith: [fileId, fileId], group: groupId
+  id, title, text, createdAt, updatedAt, group: groupId
 }]
 */

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Navbar({ toggleMode, openFormModal }) {
+function Navbar({ toggleMode, openModal }) {
   return (
     <nav className="navbar">
       <section className="navbar_logo">
@@ -17,7 +17,7 @@ function Navbar({ toggleMode, openFormModal }) {
           <i className="fas fa-list-ul"></i>
         </Link>
         <button
-          onClick={openFormModal}
+          onClick={() => openModal("groups")}
           className="navbar__button navbar__button--mobile"
         >
           <i className="fas fa-plus"></i>

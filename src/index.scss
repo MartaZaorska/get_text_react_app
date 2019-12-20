@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,900&display=swap&subset=latin-ext");
-@import url("https://fonts.googleapis.com/css?family=PT+Sans:400,700&display=swap&subset=latin-ext");
 
 $xl: "screen and (min-width: 1200px)";
 $lg: "screen and (min-width: 992px)";
@@ -9,7 +8,7 @@ $sm: "screen and (min-width: 576px)";
 $darkModeColor: #fff;
 $darkModeBackground: #181e2b;
 
-$lightModeColor: #222;
+$lightModeColor: #444;
 $lightModeBackground: #fff;
 $lightGreen: rgb(236, 252, 207);
 
@@ -34,6 +33,20 @@ $gradient: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  background: transparent;
+  width: 15px;
+  &-thumb {
+    box-shadow: inset 0 0 15px 15px rgba(110, 110, 110, 0.4);
+    border: solid 5px transparent;
+    border-radius: 1.3em;
+  }
+  &-track {
+    box-shadow: inset 0 0 15px 15px transparent;
+    border: solid 5px transparent;
+  }
+}
+
 body {
   width: 100%;
   height: auto;
@@ -41,6 +54,9 @@ body {
   overflow-x: hidden;
   font-size: 14px;
   font-family: "PT Sans", sans-serif;
+  @media #{$lg} {
+    font-size: 12px;
+  }
 }
 
 button,
@@ -84,6 +100,7 @@ select:focus {
 
   &--blur {
     filter: blur(5px);
+    pointer-events: none;
   }
 }
 
@@ -111,6 +128,7 @@ select:focus {
   height: 100vh;
   overflow: hidden;
   background: rgba($lightModeBackground, 0.7);
+
   &--dark {
     background: rgba($darkModeBackground, 0.8);
   }
@@ -208,20 +226,6 @@ select:focus {
 
     @media #{$md} {
       display: none;
-    }
-  }
-}
-
-.container.container--dark {
-  .navbar {
-    background: darken($darkModeBackground, 3);
-  }
-
-  .navbar__button,
-  .navbar__link {
-    color: darken($darkModeColor, 5);
-    &:hover {
-      color: $darkModeColor;
     }
   }
 }
@@ -385,63 +389,140 @@ select:focus {
 
 // FILES SECTION
 
-.manager {
-  position: relative;
-}
-
 .data_list {
   width: 100%;
   height: auto;
-
-  &__search {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-bottom: 1em;
-
-    border: 1px solid rgba(80, 80, 80, 0.4);
-    border-radius: 0.7em;
-    padding: 0.3em 0.7em;
-
-    i {
-      margin-right: 0.7em;
-    }
-
-    input {
-      width: 90%;
-    }
+  @media #{$lg} {
+    position: fixed;
+    width: 300px;
+    height: 100vh;
+    top: 0px;
+    left: 60px;
+    overflow-y: scroll;
+    padding: 0.7em 1.5em;
+    background: darken($lightModeBackground, 1);
+    box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.15);
   }
+}
 
-  &__wrapper {
-    position: relative;
-    width: 100%;
-    height: auto;
-  }
+.data_list__search {
+  display: flex;
+  align-items: center;
+  padding: 0.5em 0em;
+}
+
+.data_list__input {
+  margin-left: 0.5em;
 }
 
 .panel {
-  position: relative;
-  width: 100%;
-  height: auto;
-  margin: 1.5em 0em;
+  margin: 0.3em 0em 1em 0em;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   &__title {
-    font-weight: 600;
-    font-size: 1.1em;
     text-transform: capitalize;
+    font-weight: 500;
+    i {
+      margin-right: 0.3em;
+    }
+  }
+
+  &__button {
+    padding: 0.3em;
+    cursor: pointer;
   }
 }
 
-.panel_item {
-  width: 100%;
-  height: auto;
+.panel_empty {
+  color: lighten($lightModeColor, 15);
+  margin: 0.4em 0em;
+}
+
+.panel__content {
   display: flex;
-  margin: 0.5em 0em;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.panel_item {
+  display: flex;
   justify-content: space-between;
   align-items: center;
+
+  width: 100%;
+  margin: 0.5em 0em 1em 0em;
+  padding: 0.7em;
+  border-radius: 0.7em;
+  background: lighten($lightGreen, 3);
+  color: lighten($lightModeColor, 10);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
   cursor: pointer;
+  transition: all 0.2s;
+  &:hover {
+    color: $lightModeColor;
+    box-shadow: 0px 8px 13px rgba(0, 0, 0, 0.15);
+    transform: scale(1.02);
+  }
+
+  &__title {
+    line-height: 1.4;
+    padding-right: 0.8em;
+  }
+
+  @media #{$sm} {
+    width: 48%;
+  }
+
+  @media #{$lg} {
+    width: 100%;
+  }
 }
 
 .text--light {
   font-weight: 200;
+  font-size: 0.9em;
+  color: lighten($lightModeColor, 10);
+}
+
+//DARK MODE
+
+.container.container--dark {
+  .text--light {
+    color: darken($darkModeColor, 10);
+  }
+
+  .navbar {
+    background: darken($darkModeBackground, 3);
+  }
+
+  .navbar__button,
+  .navbar__link {
+    color: darken($darkModeColor, 5);
+    &:hover {
+      color: $darkModeColor;
+    }
+  }
+
+  .data_list {
+    @media #{$lg} {
+      background: darken($darkModeBackground, 1);
+    }
+  }
+
+  .panel_empty {
+    margin: 0.4em 0em;
+    color: darken($darkModeColor, 15);
+  }
+
+  .panel_item {
+    background: lighten($darkModeBackground, 2);
+    color: darken($darkModeColor, 10);
+    &:hover {
+      color: $darkModeColor;
+    }
+  }
 }
