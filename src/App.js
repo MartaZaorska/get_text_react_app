@@ -13,15 +13,20 @@ import Modal from "./components/modal/Modal";
 function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState("groups");
+  const [activeGroup, setActiveGroup] = useState("");
 
   const context = useContext(TextContext);
 
-  const openModal = typeContent => {
+  const openModal = (typeContent, groupID = "") => {
     setModalContent(typeContent);
+    setActiveGroup(groupID);
     setModalOpen(true);
   };
 
-  const closeModal = () => setModalOpen(false);
+  const closeModal = () => {
+    setModalOpen(false);
+    setActiveGroup("");
+  };
 
   return (
     <ModalContext.Provider
@@ -29,16 +34,11 @@ function App() {
         openModal,
         closeModal,
         modalOpen,
-        modalContent
+        modalContent,
+        activeGroup
       }}
     >
-      {modalOpen ? (
-        <Modal
-          closeModal={closeModal}
-          lightMode={context.lightMode}
-          modalContent={modalContent}
-        />
-      ) : null}
+      {modalOpen ? <Modal lightMode={context.lightMode} /> : null}
       <section
         className={classNames({
           container: true,

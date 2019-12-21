@@ -1,5 +1,4 @@
 import React, { useReducer, useEffect } from "react";
-import uuid from "uuid";
 
 import {
   textReducer,
@@ -27,17 +26,15 @@ export function Provider(props) {
     localStorage.setItem("get_text_app", JSON.stringify({ ...state }));
   }, [state]);
 
-  const createGroup = name => {
-    const id = uuid();
+  const createGroup = data => {
     const now = new Date().getTime();
-    const group = { name, id, files: [], createdAt: now, updatedAt: now };
+    const group = { ...data, files: [], createdAt: now, updatedAt: now };
     dispatch({ type: CREATE_GROUP, group });
   };
 
   const createFile = data => {
-    const id = uuid();
     const now = new Date().getTime();
-    const file = { ...data, id, createdAt: now, updatedAt: now };
+    const file = { ...data, createdAt: now, updatedAt: now };
     dispatch({ type: CREATE_FILE, file });
   };
 

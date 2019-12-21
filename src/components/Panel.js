@@ -9,6 +9,12 @@ function Panel({ name }) {
   const textContext = useContext(TextContext);
   const modalContext = useContext(ModalContext);
 
+  const openModalWindow = () => {
+    name === "files" && textContext.groups.length !== 0
+      ? modalContext.openModal("files")
+      : modalContext.openModal("groups");
+  };
+
   return (
     <section className="panel">
       <header className="panel__header">
@@ -20,10 +26,7 @@ function Panel({ name }) {
           )}{" "}
           {name}
         </h4>
-        <button
-          onClick={() => modalContext.openModal(name)}
-          className="panel__button"
-        >
+        <button onClick={openModalWindow} className="panel__button">
           <i className="fas fa-plus"></i>
         </button>
       </header>
