@@ -5,5 +5,6 @@ export default React.createContext({
   modalContent: "groups",
   activeGroup: "",
   openModal: () => {},
-  closeModal: () => {}
+  closeModal: () => {},
+  alerts: []
 });

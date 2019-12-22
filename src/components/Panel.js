@@ -5,7 +5,7 @@ import ModalContext from "../context/modalContext";
 
 import PanelItem from "./PanelItem";
 
-function Panel({ name }) {
+function Panel({ name, query }) {
   const textContext = useContext(TextContext);
   const modalContext = useContext(ModalContext);
 
@@ -36,6 +36,13 @@ function Panel({ name }) {
         <section className="panel__content">
           {textContext[name]
             .sort((a, b) => b.updatedAt - a.updatedAt)
+            .filter(item => {
+              return query.length !== 0
+                ? item.name.indexOf(query) < 0
+                  ? false
+                  : true
+                : true;
+            })
             .map(item => (
               <PanelItem item={item} key={item.id} />
             ))}

@@ -5,8 +5,8 @@ export const CHANGE_MODE = "CHANGE_MODE";
 const createFileReducer = (state, file) => {
   //id, title, text, createdAt, updatedAt, group: groupId
   const updatedState = {
-    groups: [...state.groups],
-    files: [...state.files, file]
+    ...state,
+    files: [...state.files, { ...file }]
   };
 
   const indexGroup = updatedState.groups.findIndex(

@@ -112,28 +112,34 @@ select:focus {
   padding: 1em 1em 5.7em 1em;
 
   @media #{$sm} {
-    padding: 2em 3em 5.7em 3em;
+    padding: 1.5em 2em 5.7em 2em;
   }
 
   @media #{$md} {
-    padding: 3em 3em 3em 7.5em;
+    padding: 1.5em 2em 1.5em 6.5em;
   }
 }
 
 .modal {
   position: fixed;
-  z-index: 10;
+  z-index: 9;
   top: 0px;
   left: 0px;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   color: $lightModeColor;
   background: rgba($lightModeBackground, 0.8);
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-height: 420px) {
+    align-items: flex-start;
+    padding-top: 2em;
+  }
 
   &--dark {
     background: rgba($darkModeBackground, 0.9);
@@ -146,6 +152,22 @@ select:focus {
   &__content {
     padding: 1em;
     text-align: center;
+
+    @media #{$sm} {
+      width: 90%;
+    }
+
+    @media #{$md} {
+      text-align: left;
+    }
+
+    @media #{$lg} {
+      width: 80%;
+    }
+
+    @media #{$xl} {
+      width: 70%;
+    }
   }
 
   &__title {
@@ -154,6 +176,9 @@ select:focus {
     background: $gradient;
     background-clip: text;
     color: transparent;
+    @media #{$md} {
+      font-size: 2.2em;
+    }
   }
 
   &__form {
@@ -161,6 +186,17 @@ select:focus {
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
+
+    @media #{$md} {
+      justify-content: space-between;
+    }
+
+    &--group {
+      flex-direction: column;
+      @media #{$md} {
+        align-items: flex-start;
+      }
+    }
   }
 
   &__input {
@@ -168,6 +204,12 @@ select:focus {
     padding: 0.7em;
     border-bottom: 1px solid rgba(110, 110, 110, 0.25);
     margin: 2.5em 0.5em 0.5em 0.5em;
+
+    @media #{$md} {
+      width: 47%;
+      margin: 1em 0em;
+      padding: 0.5em;
+    }
   }
 
   &__select {
@@ -175,6 +217,11 @@ select:focus {
     width: 100%;
     padding: 0.5em;
     border-bottom: 1px solid rgba(110, 110, 110, 0.25);
+
+    @media #{$md} {
+      width: 47%;
+      margin: 1em 0em;
+    }
   }
 
   &__button {
@@ -186,6 +233,10 @@ select:focus {
     font-weight: 600;
     margin-top: 2.5em;
     cursor: pointer;
+
+    @media #{$md} {
+      padding: 1em 2em;
+    }
   }
 
   &__file {
@@ -197,6 +248,11 @@ select:focus {
     border: 1px solid rgba(110, 110, 110, 0.25);
     input[type="file"] {
       display: none;
+    }
+
+    @media #{$lg} {
+      width: auto;
+      padding: 0.7em 1.5em;
     }
   }
 
@@ -225,6 +281,8 @@ select:focus {
   left: 0px;
   background: rgba($lightModeBackground, 0.9);
   color: $lightModeColor;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 
   display: flex;
   justify-content: center;
@@ -235,6 +293,15 @@ select:focus {
 .modal--dark .modal__progress {
   background: rgba($darkModeBackground, 0.9);
   color: $darkModeColor;
+}
+
+.progress__title {
+  font-weight: 900;
+  font-size: 5em;
+  background: $gradient;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.8;
 }
 
 // NAVBAR SECTION
@@ -562,7 +629,7 @@ select:focus {
   border-radius: 0.7em;
   background: darken($darkModeColor, 1);
   color: lighten($lightModeColor, 10);
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: all 0.2s;
   &:hover {

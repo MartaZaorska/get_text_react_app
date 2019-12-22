@@ -14,7 +14,7 @@ function GroupModal({ createGroup, closeModal }) {
   return (
     <section className="modal__content">
       <h3 className="modal__title">Create a new group</h3>
-      <form onSubmit={submitHandler} className="modal__form">
+      <form onSubmit={submitHandler} className="modal__form modal__form--group">
         <input
           type="text"
           className="modal__input"
