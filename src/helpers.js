@@ -7,3 +7,11 @@ export const getDifferenceDate = time => {
   if (diff < 2073600000) return `${parseInt(diff / 86400000)}d`;
   if (diff >= 2073600000) return `${parseInt(diff / 2073600000)}w`;
 };
+
+export const getDateString = time => {
+  const date = new Date(parseInt(time));
+  const month =
+    date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : `${date.getMonth()}`;
+  const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
+  return `${date.getFullYear()}-${month}-${day}`;
+};

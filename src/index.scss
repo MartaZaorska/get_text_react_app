@@ -109,10 +109,10 @@ select:focus {
   width: 100%;
   height: auto;
   min-height: 100vh;
-  padding: 1em 1em 5.7em 1em;
+  padding: 1em 1em 6.2em 1em;
 
   @media #{$sm} {
-    padding: 1.5em 2em 5.7em 2em;
+    padding: 1.5em 2em 6.2em 2em;
   }
 
   @media #{$md} {
@@ -302,6 +302,25 @@ select:focus {
   background-clip: text;
   color: transparent;
   line-height: 1.8;
+}
+
+.alerts {
+  position: fixed;
+  top: 0.5em;
+  right: 0.5em;
+  z-index: 12;
+  width: 250px;
+  height: auto;
+  text-align: right;
+}
+
+.alert_item {
+  display: block;
+  background: $gradient;
+  padding: 1em;
+  color: $darkModeColor;
+  border-radius: 1em;
+  margin-bottom: 1em;
 }
 
 // NAVBAR SECTION
@@ -562,6 +581,7 @@ select:focus {
 .data_list {
   width: 100%;
   height: auto;
+  z-index: 1;
   @media #{$lg} {
     position: fixed;
     width: 300px;
@@ -624,7 +644,7 @@ select:focus {
   align-items: center;
 
   width: 100%;
-  margin: 0.5em 0em 1em 0em;
+  margin: 0.5em 0em 0.8em 0em;
   padding: 0.7em;
   border-radius: 0.7em;
   background: darken($darkModeColor, 1);
@@ -632,7 +652,8 @@ select:focus {
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: all 0.2s;
-  &:hover {
+  &:hover,
+  &--active {
     color: $lightModeColor;
     box-shadow: 0px 8px 13px rgba(0, 0, 0, 0.15);
     transform: scale(1.02);
@@ -689,6 +710,146 @@ select:focus {
   }
 
   .panel_item {
+    background: lighten($darkModeBackground, 2);
+    color: darken($darkModeColor, 10);
+    &:hover {
+      color: $darkModeColor;
+    }
+  }
+}
+
+.data_item {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background: $lightModeBackground;
+
+  &__button--back {
+    color: lighten($lightModeColor, 10);
+    margin-bottom: 0.7em;
+    cursor: pointer;
+    i {
+      margin-right: 0.3em;
+    }
+
+    @media #{$lg} {
+      display: none;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+    margin: 0.5em 0em;
+    @media #{$lg} {
+      line-height: 1.8;
+    }
+  }
+
+  &__title {
+    background: $gradient;
+    background-clip: text;
+    color: transparent;
+    font-weight: 900;
+    font-size: 2.2em;
+    display: inline;
+  }
+
+  &__date {
+    margin: 0.6em 0em;
+  }
+
+  &__controls {
+    display: flex;
+  }
+
+  &__button {
+    padding: 0.2em;
+    margin-right: 0.2em;
+    cursor: pointer;
+    font-size: 1.1em;
+  }
+
+  @media #{$lg} {
+    left: 360px;
+    width: calc(100% - 360px);
+    padding: 0.7em 2.2em;
+  }
+}
+
+.group__content,
+.file__content {
+  margin-top: 0.5em 0em;
+  line-height: 1.5;
+}
+
+.file__title,
+.group__title {
+  margin-bottom: 0.3em;
+}
+
+.group_list {
+  margin: 0.4em 0em;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  &__button {
+    width: 48%;
+    margin-bottom: 0.7em;
+    padding: 0.5em;
+    border-radius: 0.7em;
+    background: darken($darkModeColor, 1);
+    color: lighten($lightModeColor, 10);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.1s;
+    &:hover {
+      color: $lightModeColor;
+      box-shadow: 0px 8px 13px rgba(0, 0, 0, 0.15);
+    }
+
+    @media #{$sm} {
+      width: 47%;
+      margin: 0.6em 0em;
+      padding: 0.7em;
+    }
+
+    @media #{$lg} {
+      width: 32%;
+    }
+  }
+}
+
+.group__text {
+  line-height: 1.7;
+  margin: 0.3em 0em;
+}
+
+.file__text {
+  padding: 0.3em 1em 0.3em 0em;
+}
+
+.group__link {
+  cursor: pointer;
+}
+
+.container.container--dark {
+  .data_item {
+    background: $darkModeBackground;
+  }
+
+  .data_item__button--back {
+    color: darken($darkModeColor, 10);
+  }
+
+  .group_list__button {
     background: lighten($darkModeBackground, 2);
     color: darken($darkModeColor, 10);
     &:hover {

@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
+import classNames from "classnames";
+
 import { getDifferenceDate } from "../helpers";
 
-function PanelGroup({ item }) {
+import ActiveContext from "../context/activeContext";
+
+function PanelItem({ item }) {
+  const activeContext = useContext(ActiveContext);
+
   return (
-    <section className="panel_item">
+    <section
+      className={classNames({
+        panel_item: true,
+        "panel_item--active":
+          activeContext.activeItem && activeContext.activeItem.id === item.id
+      })}
+      onClick={() => activeContext.setActiveItem({ ...item })}
+    >
       <h4 className="panel_item__title">
         {item.name}
         <br />
@@ -18,4 +31,4 @@ function PanelGroup({ item }) {
   );
 }
 
-export default PanelGroup;
+export default PanelItem;

@@ -1,6 +1,8 @@
 export const CREATE_GROUP = "CREATE_GROUP";
 export const CREATE_FILE = "CREATE_FILE";
 export const CHANGE_MODE = "CHANGE_MODE";
+export const DELETE_FILE = "DELETE_FILE";
+export const DELETE_GROUP = "DELETE_GROUP";
 
 const createFileReducer = (state, file) => {
   //id, title, text, createdAt, updatedAt, group: groupId
@@ -19,6 +21,41 @@ const createFileReducer = (state, file) => {
   return updatedState;
 };
 
+const deleteGroupReducer = (state, groupID) => {
+  const indexGroup = state.groups.findIndex(item => item.id === groupID);
+  const updatedFiles = [...state.files];
+  state.groups[indexGroup].files.forEach(file => {
+    const fileIndex = updatedFiles.findIndex(item => item.id === file.id);
+    updatedFiles.splice(fileIndex, 1);
+  });
+  return {
+    ...state,
+    groups: state.groups.filter(item => item.id !== groupID),
+    files: [...updatedFiles]
+  };
+};
+
+const deleteFileReducer = (state, fileID) => {
+  const updatedGroups = [...state.groups];
+  const updatedFiles = [...state.files];
+  const fileIndex = updatedFiles.findIndex(item => item.id === fileID);
+  const groupIndex = updatedGroups.findIndex(
+    item => item.id === updatedFiles[fileIndex].group
+  );
+  const fileIndexInGroup = updatedGroups[groupIndex].files.findIndex(
+    item => item.id === fileID
+  );
+  const now = new Date().getTime();
+  updatedGroups[groupIndex].files.splice(fileIndexInGroup, 1);
+  updatedGroups[groupIndex].updatedAt = now;
+  updatedFiles.splice(fileIndex, 1);
+  return {
+    ...state,
+    groups: [...updatedGroups],
+    files: [...updatedFiles]
+  };
+};
+
 export const textReducer = (state, action) => {
   switch (action.type) {
     case CREATE_GROUP:
@@ -28,6 +65,10 @@ export const textReducer = (state, action) => {
       };
     case CREATE_FILE:
       return createFileReducer(state, action.file);
+    case DELETE_GROUP:
+      return deleteGroupReducer(state, action.groupID);
+    case DELETE_FILE:
+      return deleteFileReducer(state, action.fileID);
     case CHANGE_MODE:
       return {
         ...state,

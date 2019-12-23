@@ -7,7 +7,7 @@ import { LANGUAGE_LIST } from "../../constants";
 import Progress from "./Progress";
 import FileInput from "./FileInput";
 
-function FileModal({ groups, createFile, closeModal, activeGroup }) {
+function FileModal({ groups, createFile, closeModal, activeGroup, showAlert }) {
   const [group, setGroup] = useState(activeGroup);
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(undefined);
@@ -45,7 +45,10 @@ function FileModal({ groups, createFile, closeModal, activeGroup }) {
 
   const submitHandler = e => {
     e.preventDefault();
-    if (title.length === 0 || group.length === 0) return;
+    if (title.length === 0 || group.length === 0) {
+      showAlert("You must enter a file name and select a group.");
+      return;
+    }
 
     if (image) {
       doOCR(image);

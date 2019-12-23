@@ -19,26 +19,40 @@ function Modal({ lightMode }) {
       modalContext.closeModal();
   };
 
+  const showAlert = alert => {
+    const alertElement = document.createElement("span");
+    const alertsContainer = document.querySelector(".alerts");
+    alertElement.classList.add("alert_item");
+    alertElement.textContent = alert;
+    alertsContainer.appendChild(alertElement);
+    setTimeout(() => alertsContainer.removeChild(alertElement), 3000);
+  };
+
   return (
-    <section
-      onClick={close}
-      className={classNames({ modal: true, "modal--dark": !lightMode })}
-    >
-      <i className="modal__close fas fa-arrow-left"></i>
-      {modalContext.modalContent === "groups" ? (
-        <GroupModal
-          createGroup={textContext.createGroup}
-          closeModal={modalContext.closeModal}
-        />
-      ) : (
-        <FileModal
-          groups={textContext.groups}
-          createFile={textContext.createFile}
-          closeModal={modalContext.closeModal}
-          activeGroup={modalContext.activeGroup}
-        />
-      )}
-    </section>
+    <React.Fragment>
+      <section
+        onClick={close}
+        className={classNames({ modal: true, "modal--dark": !lightMode })}
+      >
+        <section className="alerts"></section>
+        <i className="modal__close fas fa-arrow-left"></i>
+        {modalContext.modalContent === "groups" ? (
+          <GroupModal
+            createGroup={textContext.createGroup}
+            closeModal={modalContext.closeModal}
+            showAlert={showAlert}
+          />
+        ) : (
+          <FileModal
+            groups={textContext.groups}
+            createFile={textContext.createFile}
+            closeModal={modalContext.closeModal}
+            activeGroup={modalContext.activeGroup}
+            showAlert={showAlert}
+          />
+        )}
+      </section>
+    </React.Fragment>
   );
 }
 

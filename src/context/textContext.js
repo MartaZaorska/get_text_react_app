@@ -4,7 +4,9 @@ import {
   textReducer,
   CREATE_GROUP,
   CREATE_FILE,
-  CHANGE_MODE
+  CHANGE_MODE,
+  DELETE_GROUP,
+  DELETE_FILE
 } from "../reducer/textReducer";
 
 const TextContext = React.createContext();
@@ -38,6 +40,14 @@ export function Provider(props) {
     dispatch({ type: CREATE_FILE, file });
   };
 
+  const deleteGroup = groupID => {
+    dispatch({ type: DELETE_GROUP, groupID });
+  };
+
+  const deleteFile = fileID => {
+    dispatch({ type: DELETE_FILE, fileID });
+  };
+
   const changeMode = lightMode => dispatch({ type: CHANGE_MODE, lightMode });
 
   return (
@@ -46,7 +56,9 @@ export function Provider(props) {
         ...state,
         createGroup,
         createFile,
-        changeMode
+        changeMode,
+        deleteFile,
+        deleteGroup
       }}
     >
       {props.children}

@@ -1,11 +1,15 @@
 import React from "react";
 import uuid from "uuid";
 
-function GroupModal({ createGroup, closeModal }) {
+function GroupModal({ createGroup, closeModal, showAlert }) {
   const submitHandler = e => {
     e.preventDefault();
     const { name } = e.target.elements;
-    if (name.value.length === 0) return;
+    if (name.value.length === 0) {
+      showAlert("You must enter a group name");
+      return;
+    }
+
     createGroup({ name: name.value, id: uuid() });
     e.target.reset();
     closeModal();

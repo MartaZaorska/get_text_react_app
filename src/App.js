@@ -9,6 +9,8 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Manager from "./pages/Manager";
 import Modal from "./components/modal/Modal";
+import Edit from "./pages/Edit";
+import ConnectFiles from "./pages/ConnectFiles";
 
 function App() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -53,6 +55,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/files" component={Manager} />
+          <Route exact path="/edit/:id" component={Edit} />
+          <Route exact path="/connect/:id" component={ConnectFiles} />
         </Switch>
       </section>
     </ModalContext.Provider>
