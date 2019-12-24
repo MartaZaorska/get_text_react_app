@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-function ControlsItem({ id, typeContent, openModal, deleteItem }) {
+import ModalContext from "../context/modalContext";
+
+function ControlsItem({ id, typeContent, deleteItem }) {
+  const modalContext = useContext(ModalContext);
+
   return (
     <section className="data_item__controls">
       {typeContent === "File" ? null : (
         <button
           className="data_item__button"
-          onClick={() => openModal("files", id)}
+          onClick={() => modalContext.openModal("files", id)}
         >
           <i className="fas fa-plus"></i>
         </button>

@@ -17,7 +17,7 @@ function App() {
   const [modalContent, setModalContent] = useState("groups");
   const [activeGroup, setActiveGroup] = useState("");
 
-  const context = useContext(TextContext);
+  const textContext = useContext(TextContext);
 
   const openModal = (typeContent, groupID = "") => {
     setModalContent(typeContent);
@@ -40,16 +40,16 @@ function App() {
         activeGroup
       }}
     >
-      {modalOpen ? <Modal lightMode={context.lightMode} /> : null}
+      {modalOpen ? <Modal /> : null}
       <section
         className={classNames({
           container: true,
-          "container--dark": context && !context.lightMode,
+          "container--dark": textContext && !textContext.lightMode,
           "container--blur": modalOpen
         })}
       >
         <Navbar
-          toggleMode={() => context.changeMode(!context.lightMode)}
+          toggleMode={() => textContext.changeMode(!textContext.lightMode)}
           openModal={openModal}
         />
         <Switch>

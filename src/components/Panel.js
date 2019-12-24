@@ -16,7 +16,7 @@ function Panel({ name, query }) {
   };
 
   return (
-    <section className="panel">
+    <section className={`panel panel--${name}`}>
       <header className="panel__header">
         <h4 className="panel__title">
           {name === "groups" ? (
@@ -36,13 +36,7 @@ function Panel({ name, query }) {
         <section className="panel__content">
           {textContext[name]
             .sort((a, b) => b.updatedAt - a.updatedAt)
-            .filter(item => {
-              return query.length !== 0
-                ? item.name.indexOf(query) < 0
-                  ? false
-                  : true
-                : true;
-            })
+            .filter(item => (item.name.indexOf(query) < 0 ? false : true))
             .map(item => (
               <PanelItem item={item} key={item.id} />
             ))}

@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { getDateString } from "../helpers";
 
 import ActiveContext from "../context/activeContext";
-import ModalContext from "../context/modalContext";
 import TextContext from "../context/textContext";
 
 import ControlsItem from "./ControlsItem";
@@ -12,7 +11,6 @@ import GroupContent from "./GroupContent";
 
 function DataItem() {
   const activeContext = useContext(ActiveContext);
-  const modalContext = useContext(ModalContext);
   const textContext = useContext(TextContext);
 
   const deleteItem = (id, type) => {
@@ -29,12 +27,13 @@ function DataItem() {
     <section className="data_item section__wrapper">
       <button
         onClick={() => activeContext.setActiveItem({})}
-        className="data_item__button--back"
+        className="back__button"
       >
         <i className="fas fa-angle-left"></i> Back
       </button>
-      <section className="data_item__info">
+      <section className="data_item__header">
         <header>
+          <p className="text--light">{typeContent}</p>
           <h2 className="data_item__title">{name}</h2>
           <p className="data_item__date text--light">
             Created {getDateString(createdAt)}
@@ -43,7 +42,6 @@ function DataItem() {
           </p>
         </header>
         <ControlsItem
-          openModal={modalContext.openModal}
           typeContent={typeContent}
           deleteItem={deleteItem}
           id={id}

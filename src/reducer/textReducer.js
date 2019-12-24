@@ -3,9 +3,9 @@ export const CREATE_FILE = "CREATE_FILE";
 export const CHANGE_MODE = "CHANGE_MODE";
 export const DELETE_FILE = "DELETE_FILE";
 export const DELETE_GROUP = "DELETE_GROUP";
+export const UPDATE_FILE = "UPDATE_FILE";
 
 const createFileReducer = (state, file) => {
-  //id, title, text, createdAt, updatedAt, group: groupId
   const updatedState = {
     ...state,
     files: [...state.files, { ...file }]
@@ -56,6 +56,20 @@ const deleteFileReducer = (state, fileID) => {
   };
 };
 
+const updateFileReducer = (state, file) => {
+  const fileIndex = state.files.findIndex(item => item.id === file.id);
+  const groupIndex = state.groups.findIndex(item => item.id === file.group);
+  const updatedFiles = [...state.files];
+  const updatedGroups = [...state.groups];
+  updatedFiles[fileIndex] = { ...file };
+  updatedGroups[groupIndex].updatedAt = file.updatedAt;
+  return {
+    ...state,
+    files: updatedFiles,
+    groups: updatedGroups
+  };
+};
+
 export const textReducer = (state, action) => {
   switch (action.type) {
     case CREATE_GROUP:
@@ -69,6 +83,8 @@ export const textReducer = (state, action) => {
       return deleteGroupReducer(state, action.groupID);
     case DELETE_FILE:
       return deleteFileReducer(state, action.fileID);
+    case UPDATE_FILE:
+      return updateFileReducer(state, action.file);
     case CHANGE_MODE:
       return {
         ...state,

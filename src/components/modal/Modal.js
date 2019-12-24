@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import classNames from "classnames";
 
 import TextContext from "../../context/textContext";
@@ -7,9 +7,19 @@ import ModalContext from "../../context/modalContext";
 import GroupModal from "./GroupModal";
 import FileModal from "./FileModal";
 
-function Modal({ lightMode }) {
+function Modal() {
   const textContext = useContext(TextContext);
   const modalContext = useContext(ModalContext);
+
+  useEffect(() => {
+    const modalElement = document.querySelector(".modal");
+    if (modalElement) {
+      modalElement.classList.add("modal--active");
+    }
+    return () => {
+      modalElement.classList.remove("modal--active");
+    };
+  }, []);
 
   const close = e => {
     if (
@@ -32,7 +42,10 @@ function Modal({ lightMode }) {
     <React.Fragment>
       <section
         onClick={close}
-        className={classNames({ modal: true, "modal--dark": !lightMode })}
+        className={classNames({
+          modal: true,
+          "modal--dark": !textContext.lightMode
+        })}
       >
         <section className="alerts"></section>
         <i className="modal__close fas fa-arrow-left"></i>

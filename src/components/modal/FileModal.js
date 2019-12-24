@@ -50,11 +50,7 @@ function FileModal({ groups, createFile, closeModal, activeGroup, showAlert }) {
       return;
     }
 
-    if (image) {
-      doOCR(image);
-    } else {
-      newFile();
-    }
+    image ? doOCR(image) : newFile();
   };
 
   return (

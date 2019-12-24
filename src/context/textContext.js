@@ -6,7 +6,8 @@ import {
   CREATE_FILE,
   CHANGE_MODE,
   DELETE_GROUP,
-  DELETE_FILE
+  DELETE_FILE,
+  UPDATE_FILE
 } from "../reducer/textReducer";
 
 const TextContext = React.createContext();
@@ -48,6 +49,12 @@ export function Provider(props) {
     dispatch({ type: DELETE_FILE, fileID });
   };
 
+  const updateFile = data => {
+    const now = new Date().getTime();
+    const file = { ...data, updatedAt: now };
+    dispatch({ type: UPDATE_FILE, file });
+  };
+
   const changeMode = lightMode => dispatch({ type: CHANGE_MODE, lightMode });
 
   return (
@@ -58,7 +65,8 @@ export function Provider(props) {
         createFile,
         changeMode,
         deleteFile,
-        deleteGroup
+        deleteGroup,
+        updateFile
       }}
     >
       {props.children}

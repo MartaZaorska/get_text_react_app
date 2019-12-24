@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Panel from "./Panel";
 
 function DataList() {
   const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    const dataListElement = document.querySelector(".data_list");
+    if (dataListElement) {
+      dataListElement.classList.add("data_list--active");
+    }
+    return () => {
+      dataListElement.classList.remove("data_list--active");
+    };
+  }, []);
 
   return (
     <section className="data_list">
