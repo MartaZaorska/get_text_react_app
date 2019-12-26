@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Panel from "./Panel";
+
+import useAnimationSection from '../hooks/useAnimationSection';
 
 function DataList() {
   const [query, setQuery] = useState("");
 
-  useEffect(() => {
-    const dataListElement = document.querySelector(".data_list");
-    if (dataListElement) {
-      dataListElement.classList.add("data_list--active");
-    }
-    return () => {
-      dataListElement.classList.remove("data_list--active");
-    };
-  }, []);
+  useAnimationSection('data_list');
 
   return (
     <section className="data_list">
@@ -28,8 +22,8 @@ function DataList() {
         />
       </section>
       <section className="data_list__wrapper">
-        <Panel name="groups" query={query} />
-        <Panel name="files" query={query} />
+        <Panel name="groups" query={query.toLowerCase()} />
+        <Panel name="files" query={query.toLowerCase()} />
       </section>
     </section>
   );

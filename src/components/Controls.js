@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import ModalContext from "../context/modalContext";
 
-function ControlsItem({ id, typeContent, deleteItem }) {
+function Controls({ id, typeContent, deleteItem }) {
   const modalContext = useContext(ModalContext);
 
   return (
@@ -31,4 +31,4 @@ function ControlsItem({ id, typeContent, deleteItem }) {
   );
 }
 
-export default ControlsItem;
+export default Controls;

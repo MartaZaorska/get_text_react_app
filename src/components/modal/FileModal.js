@@ -65,6 +65,7 @@ function FileModal({ groups, createFile, closeModal, activeGroup, showAlert }) {
             value={title}
             onChange={e => setTitle(e.target.value)}
             placeholder="File name..."
+            autoFocus={true}
           />
           <select
             className="modal__select"

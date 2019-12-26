@@ -7,7 +7,11 @@ function FileContent({ text }) {
       {text.length === 0 ? (
         <p className="text--light">empty</p>
       ) : (
-        <p className="file__text">{text}</p>
+        <section className="file__text">
+          {text.split("\n").map((txt, index) => (
+            <p key={`${parseInt(Math.random() * 1000)}_${index}`}>{txt}</p>
+          ))}
+        </section>
       )}
     </section>
   );

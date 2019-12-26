@@ -36,7 +36,9 @@ function Panel({ name, query }) {
         <section className="panel__content">
           {textContext[name]
             .sort((a, b) => b.updatedAt - a.updatedAt)
-            .filter(item => (item.name.indexOf(query) < 0 ? false : true))
+            .filter(item =>
+              item.name.toLowerCase().indexOf(query) < 0 ? false : true
+            )
             .map(item => (
               <PanelItem item={item} key={item.id} />
             ))}

@@ -1,16 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
+import useAnimationSection from "../hooks/useAnimationSection";
+
 function Home() {
-  useEffect(() => {
-    const homeElement = document.querySelector(".home");
-    if (homeElement) {
-      homeElement.classList.add("home--active");
-    }
-    return () => {
-      homeElement.classList.remove("home--active");
-    };
-  }, []);
+  useAnimationSection("home");
 
   return (
     <section className="section__wrapper home">

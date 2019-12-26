@@ -24,6 +24,7 @@ function GroupModal({ createGroup, closeModal, showAlert }) {
           className="modal__input"
           name="name"
           placeholder="Group name..."
+          autoFocus={true}
         />
         <button className="modal__button" type="submit">
           Create

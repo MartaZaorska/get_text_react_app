@@ -24,8 +24,8 @@ const createFileReducer = (state, file) => {
 const deleteGroupReducer = (state, groupID) => {
   const indexGroup = state.groups.findIndex(item => item.id === groupID);
   const updatedFiles = [...state.files];
-  state.groups[indexGroup].files.forEach(file => {
-    const fileIndex = updatedFiles.findIndex(item => item.id === file.id);
+  state.groups[indexGroup].files.forEach(fileID => {
+    const fileIndex = updatedFiles.findIndex(item => item.id === fileID);
     updatedFiles.splice(fileIndex, 1);
   });
   return {
@@ -43,7 +43,7 @@ const deleteFileReducer = (state, fileID) => {
     item => item.id === updatedFiles[fileIndex].group
   );
   const fileIndexInGroup = updatedGroups[groupIndex].files.findIndex(
-    item => item.id === fileID
+    item => item === fileID
   );
   const now = new Date().getTime();
   updatedGroups[groupIndex].files.splice(fileIndexInGroup, 1);
@@ -94,13 +94,3 @@ export const textReducer = (state, action) => {
       return state;
   }
 };
-
-/*
-groups [{
-  id, name, createdAt, updatedAt, files: [fileId, fileId]
-}];
-
-files [{
-  id, title, text, createdAt, updatedAt, group: groupId
-}]
-*/

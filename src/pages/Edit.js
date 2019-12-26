@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import TextContext from "../context/textContext";
+
 import TextEditor from "../components/TextEditor";
 
 function Edit(props) {

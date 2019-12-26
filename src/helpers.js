@@ -1,6 +1,5 @@
 export const getDifferenceDate = time => {
-  const now = new Date().getTime();
-  const diff = now - time;
+  const diff = new Date().getTime() - time;
   if (diff < 60000) return "<1min";
   if (diff < 3600000) return `${parseInt(diff / 60000)}min`;
   if (diff < 86400000) return `${parseInt(diff / 3600000)}h`;
@@ -11,7 +10,9 @@ export const getDifferenceDate = time => {
 export const getDateString = time => {
   const date = new Date(parseInt(time));
   const month =
-    date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : `${date.getMonth()}`;
+    date.getMonth() + 1 < 10
+      ? `0${date.getMonth() + 1}`
+      : `${date.getMonth() + 1}`;
   const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
   return `${date.getFullYear()}-${month}-${day}`;
 };

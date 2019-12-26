@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 
 import { getDateString } from "../helpers";
 
 import ActiveContext from "../context/activeContext";
 import TextContext from "../context/textContext";
 
-import ControlsItem from "./ControlsItem";
+import Controls from "./Controls";
 import FileContent from "./FileContent";
 import GroupContent from "./GroupContent";
 
@@ -41,11 +41,7 @@ function DataItem() {
             Last updated {getDateString(updatedAt)}
           </p>
         </header>
-        <ControlsItem
-          typeContent={typeContent}
-          deleteItem={deleteItem}
-          id={id}
-        />
+        <Controls typeContent={typeContent} deleteItem={deleteItem} id={id} />
       </section>
       {typeContent === "File" ? (
         <FileContent text={activeContext.activeItem.text} />

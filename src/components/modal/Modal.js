@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import classNames from "classnames";
 
 import TextContext from "../../context/textContext";
@@ -7,19 +7,13 @@ import ModalContext from "../../context/modalContext";
 import GroupModal from "./GroupModal";
 import FileModal from "./FileModal";
 
+import useAnimationSection from "../../hooks/useAnimationSection";
+
 function Modal() {
   const textContext = useContext(TextContext);
   const modalContext = useContext(ModalContext);
 
-  useEffect(() => {
-    const modalElement = document.querySelector(".modal");
-    if (modalElement) {
-      modalElement.classList.add("modal--active");
-    }
-    return () => {
-      modalElement.classList.remove("modal--active");
-    };
-  }, []);
+  useAnimationSection("modal");
 
   const close = e => {
     if (

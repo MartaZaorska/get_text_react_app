@@ -63,6 +63,10 @@ body {
   font-size: 14px;
   font-family: sans-serif;
   @media #{$lg} {
+    font-size: 13px;
+  }
+
+  @media #{$xl} {
     font-size: 12px;
   }
 }
@@ -336,12 +340,15 @@ textarea:focus {
   font-size: 5em;
   line-height: 1.8;
   @include colorFontGradient();
+  text-shadow: 0 0 10px rgba(110, 110, 110, 0.4),
+    0 0 20px rgba(110, 110, 110, 0.4), 0 0 40px rgba(110, 110, 110, 0.4),
+    0 0 60px rgba(110, 110, 110, 0.4);
 }
 
 .alerts {
   position: fixed;
   top: 0.5em;
-  right: 0.5em;
+  right: 0.8em;
   z-index: 12;
   width: 250px;
   height: auto;
@@ -726,7 +733,7 @@ textarea:focus {
   z-index: 2;
   width: 100%;
   height: auto;
-  min-height: 100vh;
+  min-height: 100%;
   background: $lightModeBackground;
 
   &__header {
@@ -748,6 +755,7 @@ textarea:focus {
 
   &__date {
     margin: 0.4em 0em;
+    letter-spacing: 0.85px;
   }
 
   &__controls {
@@ -755,10 +763,13 @@ textarea:focus {
   }
 
   &__button {
-    padding: 0.2em;
-    margin-right: 0.2em;
+    padding: 0.4em;
+    margin-right: 0.3em;
     cursor: pointer;
     font-size: 1.1em;
+    @media #{$lg} {
+      padding: 0.2em;
+    }
   }
 
   @media #{$lg} {
@@ -827,10 +838,22 @@ textarea:focus {
   width: 100%;
   padding: 0.3em 1em 0.3em 0em;
   word-wrap: break-word;
+  line-height: 1.8;
 }
 
 .group__link {
   cursor: pointer;
+  border: 1px solid rgba(110, 110, 110, 0.4);
+  padding: 0.6em 2em;
+  border-radius: 1em;
+  transition: all 0.2s;
+  text-decoration: none;
+  margin-top: 1em;
+  display: inline-block;
+  &:hover {
+    background: $gradient;
+    color: $darkModeColor;
+  }
 }
 
 .data_list.data_list--active {
@@ -889,6 +912,7 @@ textarea:focus {
 .text_editor {
   width: 100%;
   height: auto;
+
   &__title {
     padding: 0.2em 0.9em 0.8em 0.9em;
     font-weight: 400;
@@ -898,7 +922,8 @@ textarea:focus {
     width: 100%;
     resize: none;
     overflow-y: scroll;
-    height: calc(100vh - 260px);
+    height: calc(100vh - 265px);
+    line-height: 1.6;
     padding: 1em;
     background: transparent;
     color: inherit;
@@ -912,10 +937,189 @@ textarea:focus {
   }
 }
 
-//DARK MODE
+//CONNECT FILES
 
-.container.container--dark {
+.connect {
+  width: 100%;
+  padding: 1.5em 2em 1.5em 6.5em;
+  height: auto;
+  height: auto;
+  min-height: 100vh;
+
+  .text_editor {
+    margin-top: 1.5em;
+    &__title {
+      font-size: 0.9em;
+      letter-spacing: 1px;
+    }
+
+    &__textarea {
+      height: calc(100vh - 150px);
+      line-height: 1.3;
+    }
+  }
+}
+
+.new_file {
+  width: 44%;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 70px;
+  padding: 1em;
   .text--light {
+    font-size: 0.9em;
+  }
+
+  &__input {
+    margin-top: 1.7em;
+    border-bottom: 1px solid rgba(80, 80, 80, 0.2);
+    padding: 0.5em;
+    width: 100%;
+  }
+
+  @media #{$lg} {
+    width: 46%;
+  }
+}
+
+.files_list {
+  width: 44%;
+  position: relative;
+  margin-left: 47vw;
+  top: 0px;
+  right: 1em;
+  padding: 1em;
+  &__item {
+    margin: 0.5em 0em;
+    line-height: 1.6;
+    text-align: left;
+    padding: 0.5em;
+    font-size: 0.95em;
+  }
+
+  &__title {
+    @include colorFontGradient();
+    padding: 0.2em;
+  }
+
+  &__text {
+    line-height: 1.9;
+  }
+
+  &__subtitle {
+    font-size: 0.95em;
+  }
+
+  @media #{$xl} {
+    font-size: 1.1em;
+    width: 47%;
+  }
+}
+
+// CONTACT SECTION
+
+.contact {
+  line-height: 1.5;
+  color: lighten($lightModeColor, 7);
+  letter-spacing: 0.85px;
+
+  @media #{$xl} {
+    line-height: 1.8;
+    font-size: 1.05em;
+  }
+
+  &__title {
+    @include colorFontGradient();
+    display: inline-block;
+    font-weight: 700;
+    font-size: 3em;
+
+    @include startBasicStyle(0.1s);
+
+    @media #{$xl} {
+      font-size: 4em;
+      margin-bottom: 0.5em;
+    }
+  }
+
+  &__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @media #{$lg} {
+      flex-direction: row;
+    }
+  }
+
+  &__content {
+    margin-bottom: 1.2em;
+    @include startBasicStyle(0.3s);
+    &:nth-child(2) {
+      @include startBasicStyle(0.6s);
+      @media #{$lg} {
+        text-align: right;
+      }
+    }
+
+    @media #{$lg} {
+      width: 50%;
+      padding: 0.5em;
+    }
+  }
+
+  &__copyright {
+    @include startBasicStyle(0.7s);
+    @media #{$md} {
+      position: absolute;
+      bottom: 0.5em;
+      right: 0.5em;
+    }
+  }
+
+  &__subtitle {
+    font-weight: 400;
+    margin: 0.2em 0em;
+    @include colorFontGradient();
+    @media #{$xl} {
+      margin: 0.7em 0em;
+    }
+  }
+
+  &__links a {
+    padding: 0.3em;
+    font-size: 1.3em;
+    margin: 0.2em;
+    display: inline-block;
+  }
+
+  &__text {
+    margin: 0.2em 0em;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: 600;
+    &:hover {
+      color: $lightModeColor;
+    }
+  }
+}
+
+.contact.contact--active {
+  .contact__title,
+  .contact__content,
+  .contact__copyright {
+    @include finishBasicStyle();
+  }
+}
+
+
+//DARK MODE
+.container.container--dark {
+  .text--light,
+  .back__button {
     color: darken($darkModeColor, 10);
   }
 
@@ -954,14 +1158,17 @@ textarea:focus {
     background: $darkModeBackground;
   }
 
-  .back__button {
-    color: darken($darkModeColor, 10);
-  }
-
   .group_list__button {
     background: lighten($darkModeBackground, 2);
     color: darken($darkModeColor, 10);
     &:hover {
+      color: $darkModeColor;
+    }
+  }
+
+  .contact {
+    color: darken($darkModeColor, 7);
+    a:hover {
       color: $darkModeColor;
     }
   }
