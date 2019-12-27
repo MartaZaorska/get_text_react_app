@@ -122,7 +122,7 @@ textarea:focus {
 .text--light {
   font-weight: 200;
   font-size: 0.9em;
-  color: lighten($lightModeColor, 10);
+  color: lighten($lightModeColor, 8);
 }
 
 .back__button {
@@ -318,8 +318,8 @@ textarea:focus {
   height: 100vh;
   top: 0px;
   left: 0px;
-  background: rgba($lightModeBackground, 0.95);
-  color: $lightModeColor;
+  background: $gradient;
+  color: $darkModeColor;
   letter-spacing: 1px;
   text-transform: uppercase;
 
@@ -327,22 +327,13 @@ textarea:focus {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  @include startBasicStyle(0.1s);
-}
-
-.modal--dark .modal__progress {
-  background: rgba($darkModeBackground, 0.95);
-  color: $darkModeColor;
 }
 
 .progress__title {
   font-size: 5em;
   line-height: 1.8;
-  @include colorFontGradient();
-  text-shadow: 0 0 10px rgba(110, 110, 110, 0.4),
-    0 0 20px rgba(110, 110, 110, 0.4), 0 0 40px rgba(110, 110, 110, 0.4),
-    0 0 60px rgba(110, 110, 110, 0.4);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2),
+    0 0 20px rgba(255, 255, 255, 0.2), 0 0 40px rgba(255, 255, 255, 0.2);
 }
 
 .alerts {
@@ -1011,6 +1002,19 @@ textarea:focus {
     font-size: 0.95em;
   }
 
+  &__button {
+    border: 1px solid rgba(110, 110, 110, 0.4);
+    padding: 0.6em 2em;
+    border-radius: 1em;
+    cursor: pointer;
+    margin-top: 1em;
+    transition: all 0.2s;
+    &:hover {
+      background: $gradient;
+      color: $darkModeColor;
+    }
+  }
+
   @media #{$xl} {
     font-size: 1.1em;
     width: 47%;
@@ -1115,12 +1119,11 @@ textarea:focus {
   }
 }
 
-
 //DARK MODE
 .container.container--dark {
   .text--light,
   .back__button {
-    color: darken($darkModeColor, 10);
+    color: darken($darkModeColor, 8);
   }
 
   .navbar {

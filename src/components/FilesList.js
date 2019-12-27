@@ -1,9 +1,12 @@
 import React from "react";
 
-function FilesList({ files }) {
+function FilesList({ files, copyText }) {
   return (
     <section className="files_list">
       <h3 className="files_list__title">Content of files in the group</h3>
+      <button className="files_list__button" onClick={copyText}>
+        Copy all text
+      </button>
       {files.map(file => (
         <section className="files_list__item" key={file.id}>
           <h4 className="files_list__subtitle">{file.name}</h4>

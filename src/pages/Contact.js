@@ -1,9 +1,8 @@
 import React from "react";
 
-import useAnimationSection from '../hooks/useAnimationSection';
+import useAnimationSection from "../hooks/useAnimationSection";
 
 function Contact() {
-
   useAnimationSection("contact");
 
   return (

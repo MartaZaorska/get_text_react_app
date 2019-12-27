@@ -16,7 +16,9 @@ function Connect(props) {
   useEffect(() => {
     const groupID = props.match.params.id;
     const data = [];
-    const groupIndex = textContext.groups.findIndex(item => item.id === groupID);
+    const groupIndex = textContext.groups.findIndex(
+      item => item.id === groupID
+    );
     textContext.groups[groupIndex].files.forEach(fileID => {
       const fileIndex = textContext.files.findIndex(item => item.id === fileID);
       data.push({ ...textContext.files[fileIndex] });
@@ -33,6 +35,12 @@ function Connect(props) {
       group: props.match.params.id
     });
     props.history.push("/files");
+  };
+
+  const copyText = () => {
+    let allText = "";
+    files.forEach(file => (allText += `${file.text}`));
+    setText(allText);
   };
 
   return (
@@ -54,7 +62,7 @@ function Connect(props) {
         </header>
         <TextEditor text={text} setText={setText} />
       </section>
-      <FilesList files={files} />
+      <FilesList files={files} copyText={copyText} />
     </section>
   );
 }

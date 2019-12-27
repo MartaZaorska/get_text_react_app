@@ -7,7 +7,7 @@ import { Provider } from "./context/textContext";
 
 import "./index.scss";
 
-//import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <Provider>
@@ -18,4 +18,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-//serviceWorker.register();
+serviceWorker.register();

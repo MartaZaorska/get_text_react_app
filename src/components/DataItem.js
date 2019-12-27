@@ -18,8 +18,6 @@ function DataItem() {
     activeContext.setActiveItem({});
   };
 
-  if (Object.keys(activeContext.activeItem).length === 0) return null;
-
   const { name, id, updatedAt, createdAt } = activeContext.activeItem;
   const typeContent = activeContext.activeItem.files ? "Group" : "File";
 

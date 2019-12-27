@@ -21,7 +21,7 @@ function Manager() {
     >
       <section className="section__wrapper manager">
         <DataList />
-        <DataItem />
+        {Object.keys(activeItem).length === 0 ? null : <DataItem />}
       </section>
     </ActiveContext.Provider>
   );

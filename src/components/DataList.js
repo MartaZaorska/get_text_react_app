@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 import Panel from "./Panel";
 
-import useAnimationSection from '../hooks/useAnimationSection';
+import useAnimationSection from "../hooks/useAnimationSection";
 
 function DataList() {
   const [query, setQuery] = useState("");
 
-  useAnimationSection('data_list');
+  useAnimationSection("data_list");
 
   return (
     <section className="data_list">
