@@ -1,19 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 
-import TextContext from "../context/textContext";
-import ModalContext from "../context/modalContext";
+import Context from "../context/context";
 
 import PanelItem from "./PanelItem";
 
 function Panel({ name, query }) {
-  const textContext = useContext(TextContext);
-  const modalContext = useContext(ModalContext);
+  const context = useContext(Context);
 
   const openModalWindow = () => {
-    name === "files" && textContext.groups.length !== 0
-      ? modalContext.openModal("files")
-      : modalContext.openModal("groups");
+    name === "files" && context.groups.length !== 0
+      ? context.openModal("files")
+      : context.openModal("groups");
   };
+
+  const data = useMemo(() => {
+    return context[name]
+      .sort((a, b) => b.updatedAt - a.updatedAt)
+      .filter((item) =>
+        item.name.toLowerCase().indexOf(query) < 0 ? false : true
+      );
+  }, [name, query, context[name]]);
 
   return (
     <section className={`panel panel--${name}`}>
@@ -30,18 +36,13 @@ function Panel({ name, query }) {
           <i className="fas fa-plus"></i>
         </button>
       </header>
-      {textContext[name].length === 0 ? (
+      {context[name].length === 0 ? (
         <p className="panel_empty">empty</p>
       ) : (
         <section className="panel__content">
-          {textContext[name]
-            .sort((a, b) => b.updatedAt - a.updatedAt)
-            .filter(item =>
-              item.name.toLowerCase().indexOf(query) < 0 ? false : true
-            )
-            .map(item => (
-              <PanelItem item={item} key={item.id} />
-            ))}
+          {data.map((item) => (
+            <PanelItem item={item} key={item.id} />
+          ))}
         </section>
       )}
     </section>

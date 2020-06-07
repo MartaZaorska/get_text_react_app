@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Switch, Route } from "react-router-dom";
 import classNames from "classnames";
 
-import TextContext from "./context/textContext";
-import ModalContext from "./context/modalContext";
+import Context from "./context/context";
 
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -14,45 +13,19 @@ import Connect from "./pages/Connect";
 import Contact from "./pages/Contact";
 
 function App() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState("groups");
-  const [activeGroup, setActiveGroup] = useState("");
-
-  const textContext = useContext(TextContext);
-
-  const openModal = (typeContent, groupID = "") => {
-    setModalContent(typeContent);
-    setActiveGroup(groupID);
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-    setActiveGroup("");
-  };
+  const context = useContext(Context);
 
   return (
-    <ModalContext.Provider
-      value={{
-        openModal,
-        closeModal,
-        modalOpen,
-        modalContent,
-        activeGroup
-      }}
-    >
-      {modalOpen ? <Modal /> : null}
+    <>
+      {context.modal.open ? <Modal /> : null}
       <section
         className={classNames({
           container: true,
-          "container--dark": textContext && !textContext.lightMode,
-          "container--blur": modalOpen
+          "container--dark": !context.lightMode,
+          "container--blur": context.modal.open,
         })}
       >
-        <Navbar
-          toggleMode={() => textContext.changeMode(!textContext.lightMode)}
-          openModal={openModal}
-        />
+        <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/files" component={Manager} />
@@ -61,7 +34,7 @@ function App() {
           <Route exact path="/contact" component={Contact} />
         </Switch>
       </section>
-    </ModalContext.Provider>
+    </>
   );
 }
 

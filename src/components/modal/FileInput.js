@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function FileInput({ setImage }) {
   const [file, setFile] = useState(undefined);
 
-  const fileHandler = e => {
+  const fileHandler = (e) => {
     e.preventDefault();
     if (e.target.files[0]) {
       let reader = new FileReader();

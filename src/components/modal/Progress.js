@@ -9,4 +9,4 @@ function Progress({ data }) {
   );
 }
 
-export default Progress;
+export default React.memo(Progress);

@@ -7,7 +7,7 @@ function TextEditor({ text, setText }) {
       <textarea
         className="text_editor__textarea"
         value={text}
-        onChange={e => setText(e.target.value)}
+        onChange={(e) => setText(e.target.value)}
       ></textarea>
     </section>
   );

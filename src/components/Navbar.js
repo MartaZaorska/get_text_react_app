@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-function Navbar({ toggleMode, openModal }) {
+import Context from "../context/context";
+
+function Navbar() {
+  const context = useContext(Context);
+
   return (
     <nav className="navbar">
       <section className="navbar_logo">
@@ -17,7 +21,7 @@ function Navbar({ toggleMode, openModal }) {
           <i className="fas fa-list-ul"></i>
         </Link>
         <button
-          onClick={() => openModal("groups")}
+          onClick={() => context.openModal("groups")}
           className="navbar__button navbar__button--mobile"
         >
           <i className="fas fa-plus"></i>
@@ -25,7 +29,10 @@ function Navbar({ toggleMode, openModal }) {
         <Link to="/contact" className="navbar__link">
           <i className="fas fa-info"></i>
         </Link>
-        <button onClick={toggleMode} className="navbar__link">
+        <button
+          onClick={() => context.changeMode(!context.lightMode)}
+          className="navbar__link"
+        >
           <i className="fas fa-adjust"></i>
         </button>
       </section>

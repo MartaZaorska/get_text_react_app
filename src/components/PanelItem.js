@@ -3,19 +3,19 @@ import classNames from "classnames";
 
 import { getDifferenceDate } from "../helpers";
 
-import ActiveContext from "../context/activeContext";
+import Context from "../context/context";
 
 function PanelItem({ item }) {
-  const activeContext = useContext(ActiveContext);
+  const context = useContext(Context);
 
   return (
     <section
       className={classNames({
         panel_item: true,
         "panel_item--active":
-          activeContext.activeItem && activeContext.activeItem.id === item.id
+          context.activeItem && context.activeItem.id === item.id,
       })}
-      onClick={() => activeContext.setActiveItem({ ...item })}
+      onClick={() => context.setActiveItem({ ...item })}
     >
       <h4 className="panel_item__title">
         {item.name}

@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { createWorker } from "tesseract.js";
 import uuid from "uuid";
 
 import { LANGUAGE_LIST } from "../../constants";
 
+import Context from "../../context/context";
+
 import Progress from "./Progress";
 import FileInput from "./FileInput";
 
-function FileModal({ groups, createFile, closeModal, activeGroup, showAlert }) {
-  const [group, setGroup] = useState(activeGroup);
+function FileModal({ setAlert }) {
+  const context = useContext(Context);
+  const [group, setGroup] = useState(context.modal.activeGroup);
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(undefined);
   const [language, setLanguage] = useState("eng");
@@ -22,31 +25,31 @@ function FileModal({ groups, createFile, closeModal, activeGroup, showAlert }) {
   }, [ocr]);
 
   const worker = createWorker({
-    logger: m => setProgress(m)
+    logger: (m) => setProgress(m),
   });
 
   const newFile = () => {
-    createFile({ id: uuid(), name: title, group, text: ocr });
+    context.createFile({ id: uuid(), name: title, group, text: ocr });
     setTitle("");
     setOcr("");
     setProgress(undefined);
-    closeModal();
+    context.closeModal();
   };
 
-  const doOCR = async image => {
+  const doOCR = async (image) => {
     await worker.load();
     await worker.loadLanguage(language);
     await worker.initialize(language);
     const {
-      data: { text }
+      data: { text },
     } = await worker.recognize(image);
     setOcr(text);
   };
 
-  const submitHandler = e => {
+  const submitHandler = (e) => {
     e.preventDefault();
     if (title.length === 0 || group.length === 0) {
-      showAlert("You must enter a file name and select a group.");
+      setAlert("You must enter a file name and select a group.");
       return;
     }
 
@@ -63,17 +66,17 @@ function FileModal({ groups, createFile, closeModal, activeGroup, showAlert }) {
             type="text"
             className="modal__input"
             value={title}
-            onChange={e => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="File name..."
             autoFocus={true}
           />
           <select
             className="modal__select"
             value={group}
-            onChange={e => setGroup(e.target.value)}
+            onChange={(e) => setGroup(e.target.value)}
           >
             <option value="">Select a group</option>
-            {groups.map(item => (
+            {context.groups.map((item) => (
               <option value={item.id} key={item.id}>
                 {item.name}
               </option>
@@ -84,9 +87,9 @@ function FileModal({ groups, createFile, closeModal, activeGroup, showAlert }) {
           <select
             className="modal__select"
             value={language}
-            onChange={e => setLanguage(e.target.value)}
+            onChange={(e) => setLanguage(e.target.value)}
           >
-            {LANGUAGE_LIST.map(lang => (
+            {LANGUAGE_LIST.map((lang) => (
               <option value={lang.abbr} key={lang.abbr}>
                 {lang.name}
               </option>
@@ -106,4 +109,4 @@ function FileModal({ groups, createFile, closeModal, activeGroup, showAlert }) {
   );
 }
 
-export default FileModal;
+export default React.memo(FileModal);

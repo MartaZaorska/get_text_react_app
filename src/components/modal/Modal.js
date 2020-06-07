@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import classNames from "classnames";
 
-import TextContext from "../../context/textContext";
-import ModalContext from "../../context/modalContext";
+import Context from "../../context/context";
 
 import GroupModal from "./GroupModal";
 import FileModal from "./FileModal";
@@ -10,26 +9,29 @@ import FileModal from "./FileModal";
 import useAnimationSection from "../../hooks/useAnimationSection";
 
 function Modal() {
-  const textContext = useContext(TextContext);
-  const modalContext = useContext(ModalContext);
+  const [alert, setAlert] = useState("");
+  const context = useContext(Context);
+
+  useEffect(() => {
+    if (alert.length > 0) {
+      const alertItem = document.querySelector(".alert_item");
+      alertItem.innerText = alert;
+      alertItem.classList.add("alert_item--active");
+      setTimeout(() => {
+        setAlert("");
+        alertItem.classList.remove("alert_item--active");
+      }, 3000);
+    }
+  }, [alert]);
 
   useAnimationSection("modal");
 
-  const close = e => {
+  const close = (e) => {
     if (
       e.target.classList.contains("modal") ||
       e.target.classList.contains("modal__close")
     )
-      modalContext.closeModal();
-  };
-
-  const showAlert = alert => {
-    const alertElement = document.createElement("span");
-    const alertsContainer = document.querySelector(".alerts");
-    alertElement.classList.add("alert_item");
-    alertElement.textContent = alert;
-    alertsContainer.appendChild(alertElement);
-    setTimeout(() => alertsContainer.removeChild(alertElement), 3000);
+      context.closeModal();
   };
 
   return (
@@ -38,25 +40,17 @@ function Modal() {
         onClick={close}
         className={classNames({
           modal: true,
-          "modal--dark": !textContext.lightMode
+          "modal--dark": !context.lightMode,
         })}
       >
-        <section className="alerts"></section>
+        <section className="alerts">
+          <span className="alert_item"></span>
+        </section>
         <i className="modal__close fas fa-arrow-left"></i>
-        {modalContext.modalContent === "groups" ? (
-          <GroupModal
-            createGroup={textContext.createGroup}
-            closeModal={modalContext.closeModal}
-            showAlert={showAlert}
-          />
+        {context.modal.content === "groups" ? (
+          <GroupModal setAlert={setAlert} />
         ) : (
-          <FileModal
-            groups={textContext.groups}
-            createFile={textContext.createFile}
-            closeModal={modalContext.closeModal}
-            activeGroup={modalContext.activeGroup}
-            showAlert={showAlert}
-          />
+          <FileModal setAlert={setAlert} />
         )}
       </section>
     </React.Fragment>

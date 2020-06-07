@@ -20,12 +20,12 @@ function Home() {
       </section>
       <section className="home__background">
         <img
-          src="https://cdn130.picsart.com/237357485065212.png?r1024x1024"
+          src="./images/home.png"
           alt="palm leaf"
           className="leaf leaf_top"
         />
         <img
-          src="https://cdn130.picsart.com/237357485065212.png?r1024x1024"
+          src="./images/home.png"
           alt="palm leaf"
           className="leaf leaf_bottom"
         />

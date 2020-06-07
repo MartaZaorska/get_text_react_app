@@ -1,32 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 
 import { getDateString } from "../helpers";
 
-import ActiveContext from "../context/activeContext";
-import TextContext from "../context/textContext";
+import Context from "../context/context";
 
 import Controls from "./Controls";
 import FileContent from "./FileContent";
 import GroupContent from "./GroupContent";
 
 function DataItem() {
-  const activeContext = useContext(ActiveContext);
-  const textContext = useContext(TextContext);
+  const context = useContext(Context);
 
-  const deleteItem = (id, type) => {
-    textContext[`delete${type}`](id);
-    activeContext.setActiveItem({});
-  };
+  const typeContent = useMemo(() => {
+    return context.activeItem.files ? "Group" : "File";
+  }, [context.activeItem]);
 
-  const { name, id, updatedAt, createdAt } = activeContext.activeItem;
-  const typeContent = activeContext.activeItem.files ? "Group" : "File";
+  const { name, updatedAt, createdAt } = context.activeItem;
 
   return (
     <section className="data_item section__wrapper">
-      <button
-        onClick={() => activeContext.setActiveItem({})}
-        className="back__button"
-      >
+      <button onClick={() => context.setActiveItem()} className="back__button">
         <i className="fas fa-angle-left"></i> Back
       </button>
       <section className="data_item__header">
@@ -39,17 +32,12 @@ function DataItem() {
             Last updated {getDateString(updatedAt)}
           </p>
         </header>
-        <Controls typeContent={typeContent} deleteItem={deleteItem} id={id} />
+        <Controls typeContent={typeContent} />
       </section>
       {typeContent === "File" ? (
-        <FileContent text={activeContext.activeItem.text} />
+        <FileContent text={context.activeItem.text} />
       ) : (
-        <GroupContent
-          files={activeContext.activeItem.files}
-          setActiveItem={activeContext.setActiveItem}
-          data={textContext.files}
-          id={id}
-        />
+        <GroupContent />
       )}
     </section>
   );

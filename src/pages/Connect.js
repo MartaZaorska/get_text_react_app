@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import uuid from "uuid";
 
-import TextContext from "../context/textContext";
+import Context from "../context/context";
 
 import FilesList from "../components/FilesList";
 import TextEditor from "../components/TextEditor";
@@ -11,42 +11,36 @@ function Connect(props) {
   const [text, setText] = useState("");
   const [title, setTitle] = useState("Connected file");
 
-  const textContext = useContext(TextContext);
+  const context = useContext(Context);
 
   useEffect(() => {
     const groupID = props.match.params.id;
-    const data = [];
-    const groupIndex = textContext.groups.findIndex(
-      item => item.id === groupID
-    );
-    textContext.groups[groupIndex].files.forEach(fileID => {
-      const fileIndex = textContext.files.findIndex(item => item.id === fileID);
-      data.push({ ...textContext.files[fileIndex] });
-    });
-    setFiles(data);
-  }, [props.match.params.id, textContext]);
+    const group = context.groups.find((item) => item.id === groupID);
 
-  const createText = () => {
+    const data = [];
+    group.files.forEach((fileID) => {
+      const file = context.files.find((item) => item.id === fileID);
+      data.push({ ...file });
+    });
+
+    setFiles(data);
+  }, [props.match.params.id, context.groups, context.files]);
+
+  const createFile = () => {
     const id = uuid();
-    textContext.createFile({
+    context.createFile({
       id,
       name: title || "Connected file",
       text,
-      group: props.match.params.id
+      group: props.match.params.id,
     });
     props.history.push("/files");
-  };
-
-  const copyText = () => {
-    let allText = "";
-    files.forEach(file => (allText += `${file.text}`));
-    setText(allText);
   };
 
   return (
     <section className="connect">
       <section className="new_file">
-        <button onClick={createText} className="edit__button">
+        <button onClick={createFile} className="edit__button">
           Create
         </button>
         <header className="new_file__header">
@@ -56,13 +50,13 @@ function Connect(props) {
             type="text"
             className="new_file__input"
             value={title}
-            onChange={e => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="File name..."
           />
         </header>
         <TextEditor text={text} setText={setText} />
       </section>
-      <FilesList files={files} copyText={copyText} />
+      <FilesList files={files} setText={setText} />
     </section>
   );
 }

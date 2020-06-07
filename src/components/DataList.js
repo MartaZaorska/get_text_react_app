@@ -18,12 +18,12 @@ function DataList() {
           className="data_list__input"
           placeholder="Search"
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value.toLowerCase())}
         />
       </section>
       <section className="data_list__wrapper">
-        <Panel name="groups" query={query.toLowerCase()} />
-        <Panel name="files" query={query.toLowerCase()} />
+        <Panel name="groups" query={query} />
+        <Panel name="files" query={query} />
       </section>
     </section>
   );

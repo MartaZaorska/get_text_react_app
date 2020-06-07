@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
-import TextContext from "../context/textContext";
+import Context from "../context/context";
 
 import TextEditor from "../components/TextEditor";
 
@@ -9,19 +9,18 @@ function Edit(props) {
   const [text, setText] = useState("");
   const [item, setItem] = useState(undefined);
 
-  const textContext = useContext(TextContext);
+  const context = useContext(Context);
 
   useEffect(() => {
-    const fileIndex = textContext.files.findIndex(
-      item => item.id === props.match.params.id
+    const file = context.files.find(
+      (item) => item.id === props.match.params.id
     );
-    const fileItem = { ...textContext.files[fileIndex] };
-    setItem(fileItem);
-    setText(fileItem.text);
-  }, [props.match.params.id, textContext.files]);
+    setItem({ ...file });
+    setText(file.text);
+  }, [props.match.params.id, context.files]);
 
   const saveText = () => {
-    textContext.updateFile({ ...item, text });
+    context.updateFile({ ...item, text });
     props.history.push("/files");
   };
 
